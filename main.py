@@ -4,7 +4,7 @@ import random
 
 """
 -GRID SIMULATION-
-Originally written by L.Kaminski
+Originally written by L.Kam
 
 A program simulating 'Grid,' a 3-dimensional digital space designed to create structures. it's based heavily off
 'The Grid' from Tron.
