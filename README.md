@@ -8,6 +8,8 @@ Originally written by L.Kam
 A program simulating 'Grid,' a 3-dimensional digital space designed to create structures. it's based heavily off
 'The Grid' from Tron.
 
+This is NOT the interaction system that's replacing OmicronOS. I'll be making a post about that shortly.
+
 HOW IT WORKS, STEP BY STEP
 ----------
 1. Upon boot, three things are created; the Player, the Grid, and BASIS, the first true structure.
