@@ -4,7 +4,7 @@ import random
 
 """
 -GRID SIMULATION-
-Originally written by L.Kam
+Originally written by L.Kaminski
 
 A program simulating 'Grid,' a 3-dimensional digital space designed to create structures. it's based heavily off
 'The Grid' from Tron.
@@ -33,8 +33,8 @@ app = Ursina()#define app
 player = FirstPersonController()#init player
 
 #preworked settings/preloaded assets
-grid = Entity(model='plane', texture='resource_grid', collider='mesh', scale=10000, texture_scale=(10000,10000))
-basis = Entity(model='cube', texture='resource_structure', collider='mesh', scale=2, y=-2)
+grid = Entity(model='plane', texture='resource_grid', collider='mesh', scale=10000, color=color.cyan, texture_scale=(10000,10000))
+basis = Entity(model='cube', texture='resource_structure', collider='mesh', color=color.cyan, scale=2, y=-2)
 sky = Sky()
 sky.texture = 'resource_skybox'
 player.cursor.color=color.cyan
@@ -66,7 +66,7 @@ nudge = Audio(sound_file_name='nudge.wav', autoplay=False, volume=0.3)
 ambience = Audio(sound_file_name='cyber.mp3', autoplay=False, loop=True, volume=0.6)
 ambience.play()
 
-window.fullscreen=True
+#window.fullscreen=True
 
 def update():
     global modelnum
@@ -77,6 +77,7 @@ def update():
     grid.scale = 10000
     grid.enable()
     grid.position = (0, 0, 0)
+    grid.rotation = (0, 0, 0)
 
 #sprinting
     if held_keys['shift']:
@@ -116,7 +117,7 @@ def make_cylinder_structure():
         pass
 
 def make_torus_structure():
-    basis2 = duplicate(basis, model='torus', collider='mesh', x=mouse.world_point.x, z=mouse.world_point.z, y=defaultheight, rotation=(0,0,0), scale_y=0)
+    basis2 = duplicate(basis, model='torus', collider='mesh', texture='resource_torus', x=mouse.world_point.x, z=mouse.world_point.z, y=defaultheight, rotation=(0,0,0), scale_y=0)
     basis2.animate_scale_y(10, duration=animationtime, curve=curve.linear, loop=False)
     creator.play()
 
@@ -192,9 +193,13 @@ Arrow Keys + (-/=/m) - Move/Rotate Structure Axis (based on height modifier)
 V - Erase Structure
 , / . - Height Mod Adjust Up/Down (Hold CTRL to +10)
 [ / ] - Scale Mod Adjust Up/Down (Hold CTRL to +10)
+C - Swap colors
+J - Hide tooltips
 """
 
-tooltips = Text(text=controls, origin=(-.5,.5), color=color.cyan, size=.010, x=-0.87, y=0.52)
+tooltips = Text(text=controls, origin=(-.5,.5), color=color.cyan, x=-0.87, y=0.52)
+tooltips.size = 1
+tooltips.wordwrap = False
 
 #eraser func
 def erase_structure():
@@ -206,6 +211,7 @@ def erase_structure():
 
 #input handler
 def input(key):
+    global tooltips
     if key == '0':
         quit()
     if key == '1':
@@ -225,43 +231,64 @@ def input(key):
         modify_structure()
     if key == 'up arrow':
         try:
-            mouse.hovered_entity.x += heightmodlevel
+            piss = mouse.hovered_entity.position.x
+            piss2 = mouse.hovered_entity.position.y
+            piss3 = mouse.hovered_entity.position.z
+            mouse.hovered_entity.animate_position((piss+heightmodlevel, piss2, piss3), duration=animationtime, curve=curve.linear)
             nudge.play()
         except AttributeError:
             pass
     if key == 'down arrow':
         try:
-            mouse.hovered_entity.x -= heightmodlevel
+            piss = mouse.hovered_entity.position.x
+            piss2 = mouse.hovered_entity.position.y
+            piss3 = mouse.hovered_entity.position.z
+            mouse.hovered_entity.animate_position((piss-heightmodlevel, piss2, piss3), duration=animationtime, curve=curve.linear)
             nudge.play()
         except AttributeError:
             pass
     if key == 'left arrow':
         try:
-            mouse.hovered_entity.z += heightmodlevel
+            piss = mouse.hovered_entity.position.x
+            piss2 = mouse.hovered_entity.position.y
+            piss3 = mouse.hovered_entity.position.z
+            mouse.hovered_entity.animate_position((piss, piss2, piss3+heightmodlevel), duration=animationtime, curve=curve.linear)
             nudge.play()
         except AttributeError:
             pass
     if key == 'right arrow':
         try:
-            mouse.hovered_entity.z -= heightmodlevel
+            piss = mouse.hovered_entity.position.x
+            piss2 = mouse.hovered_entity.position.y
+            piss3 = mouse.hovered_entity.position.z
+            mouse.hovered_entity.animate_position((piss, piss2, piss3-heightmodlevel), duration=animationtime, curve=curve.linear)
             nudge.play()
         except AttributeError:
             pass
     if key == '=':
         try:
-            mouse.hovered_entity.y += heightmodlevel
+            piss = mouse.hovered_entity.position.x
+            piss2 = mouse.hovered_entity.position.y
+            piss3 = mouse.hovered_entity.position.z
+            mouse.hovered_entity.animate_position((piss, piss2+heightmodlevel, piss3), duration=animationtime, curve=curve.linear)
             nudge.play()
         except AttributeError:
             pass
     if key == 'm':
         try:
-            mouse.hovered_entity.rotation_y += heightmodlevel
+            piss = mouse.hovered_entity.rotation.x
+            piss2 = mouse.hovered_entity.rotation.y
+            piss3 = mouse.hovered_entity.rotation.z
+            mouse.hovered_entity.animate_rotation((piss, piss2+heightmodlevel, piss3), duration=animationtime, curve=curve.linear)
             nudge.play()
         except AttributeError:
             pass
     if key == '-':
         try:
-            mouse.hovered_entity.y -= heightmodlevel
+            piss = mouse.hovered_entity.position.x
+            piss2 = mouse.hovered_entity.position.y
+            piss3 = mouse.hovered_entity.position.z
+            mouse.hovered_entity.animate_position((piss, piss2-heightmodlevel, piss3), duration=animationtime, curve=curve.linear)
             nudge.play()
         except AttributeError:
             pass
@@ -287,7 +314,20 @@ def input(key):
         mod_scale_print_up()
     if key == '[':
         mod_scale_print_down()
+    if key == 'c':
+        try:
+            if mouse.hovered_entity.color == color.cyan:
+                mouse.hovered_entity.color = color.orange
+            else:
+                mouse.hovered_entity.color = color.cyan
+        except AttributeError:
+            pass
     if key == 'v':
         erase_structure()
+    if key == 'j':
+        if tooltips.enabled == False:
+            tooltips.enabled = True
+        elif tooltips.enabled == True:
+            tooltips.enabled = False
 
 app.run()#init app
