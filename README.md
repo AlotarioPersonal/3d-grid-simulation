@@ -3,7 +3,8 @@ A Ursina program used to create structures and buildings. WIP.
 
 Originally written by L.Kam
 
-![image](https://github.com/AlotarioPersonal/3d-grid-simulation/assets/126506217/a76a7115-44b5-4df9-9164-3b79791155a5)
+![image](https://github.com/AlotarioPersonal/3d-grid-simulation/assets/126506217/e8d0ec5a-e95e-4cb6-a945-88537e1d906a)
+
 
 A program simulating 'Grid,' a 3-dimensional digital space designed to create structures. it's based heavily off
 'The Grid' from Tron.
