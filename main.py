@@ -194,6 +194,7 @@ V - Erase Structure
 , / . - Height Mod Adjust Up/Down (Hold CTRL to +10)
 [ / ] - Scale Mod Adjust Up/Down (Hold CTRL to +10)
 C - Swap colors
+F - Fullscreen
 J - Hide tooltips
 """
 
@@ -322,6 +323,11 @@ def input(key):
                 mouse.hovered_entity.color = color.cyan
         except AttributeError:
             pass
+    if key == 'f':
+            if window.fullscreen == False:
+                window.fullscreen = True
+            else:
+                window.fullscreen = False
     if key == 'v':
         erase_structure()
     if key == 'j':
