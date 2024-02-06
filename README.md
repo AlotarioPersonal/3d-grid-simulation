@@ -9,6 +9,9 @@ Originally written by L.Kam
 A program simulating 'Grid,' a 3-dimensional digital space designed to create structures. it's based heavily off
 'The Grid' from Tron.
 
+![image](https://github.com/AlotarioPersonal/3d-grid-simulation/assets/126506217/2d4bc7e5-beaa-448b-8192-794006cab6a3)
+
+
 This is NOT the interaction system that's replacing OmicronOS. I'll be making a post about that shortly.
 
 HOW IT WORKS, STEP BY STEP
