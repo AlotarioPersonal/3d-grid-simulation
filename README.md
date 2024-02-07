@@ -22,12 +22,21 @@ underneath the world and used as a duplicatable entity.
 3. The Grid, every frame, is locked into a static enabled state, position, size, and rotation. You cannot modify or delete The Grid.
 4. The player is given two abilities: The ability to move, and omnipotency. (I'm serious.)
 The player's detailed abilities are as follows:
+
 -Free range of movement, albiet with gravity
+
 -The ability to create and transform 'structures,' which i'll explain in a minute
+
 -The ability to delete structures.
-5. 'Structures' are 3D objects that the player creates from the matter of the grid. The options are:
+
+6. 'Structures' are 3D objects that the player creates from the matter of the grid. The options are:
+
 -Cube
+
 -Torus
--Spike/Diamond
--Torus
+
+-Diamond
+
+-Cylinder
+
 6. Grid is a live program. Once you leave, everything you create is erased permanently, and you cannot retrieve it.
